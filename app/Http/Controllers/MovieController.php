@@ -39,7 +39,7 @@ class MovieController extends Controller
             return response()->json(['message' => 'API Key not set. Please check your .env file.'], 400);
         }
 
-        $response = Http::get('https://api.themoviedb.org/3/trending/movie/day', [
+        $response = Http::get('https://api.themoviedb.org/3', [
             'api_key' => $apiKey,
         ]);
 
@@ -71,51 +71,18 @@ class MovieController extends Controller
     
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+   // MovieController.php
+    public function search(Request $request)
     {
-        //
+        $query = $request->input('query');
+        $movies = Movie::where('title', 'like', "%{$query}%")->get(); // Adjust according to your movie model
+        return view('movies.index', compact('movies'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

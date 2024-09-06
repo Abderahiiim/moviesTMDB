@@ -19,3 +19,6 @@ Route::middleware([
 
 
 Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
+
+
+Route::get('/movies/search', [MovieController::class, 'search'])->name('movies.search');

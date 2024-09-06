@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +11,25 @@
 <body>
     <div class="container mx-auto p-4">
         <h1 class="text-2xl font-bold mb-4">Movies List</h1>
+        
+        <!-- Search Form -->
+        <form action="{{ route('movies.search') }}" method="GET" class="mb-4">
+            <div class="flex items-center">
+                <input
+                    type="text"
+                    name="query"
+                    value="{{ request('query') }}"
+                    placeholder="Search for a movie..."
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+                <button
+                    type="submit"
+                    class="ml-2 px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                    Search
+                </button>
+            </div>
+        </form>
 
         @if($movies->isEmpty())
             <p class="text-center">No movies available.</p>
