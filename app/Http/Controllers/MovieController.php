@@ -11,29 +11,41 @@ class MovieController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function fetchandStore()
-    {
-      
-        $apiKey = env('TMDB_API_KEY');
 
+
+
+
+
+    public function index()
+    {
+        
+        if (Movie::count() === 0) {
+           
+            $this->fetchAndStore();
+        }
+
+    
+        $movies = Movie::all();
+
+      
+        return view('movies.index', compact('movies'));
+    }
+
+    public function fetchAndStore()
+    {
+        $apiKey = env('TMDB_API_KEY');
 
         if (!$apiKey) {
             return response()->json(['message' => 'API Key not set. Please check your .env file.'], 400);
         }
 
-    
         $response = Http::get('https://api.themoviedb.org/3/trending/movie/day', [
             'api_key' => $apiKey,
         ]);
 
-      
-        
-
-
         $movies = $response->json()['results'] ?? [];
 
         foreach ($movies as $movie) {
-     
             $title = $movie['title'];
             $overview = $movie['overview'];
             $releaseDate = $movie['release_date'] ?? null;
@@ -44,7 +56,7 @@ class MovieController extends Controller
             $popularity = $movie['popularity'];
 
             Movie::updateOrCreate(
-                ['title' => $title], # unique 
+                ['title' => $title], // unique
                 [
                     'overview' => $overview,
                     'release_date' => $releaseDate,
@@ -56,10 +68,8 @@ class MovieController extends Controller
                 ]
             );
         }
-
-        return response()->json(['message' => 'Data fetched and stored successfully!']);
-    }
     
+    }
 
     /**
      * Show the form for creating a new resource.
