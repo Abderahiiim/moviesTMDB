@@ -34,7 +34,7 @@
                                     >
                                         Dashboard
                                     </a>
-                                {{-- @else
+                                @else
                                     <a
                                         href="{{ route('login') }}"
                                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20]"
@@ -49,7 +49,7 @@
                                         >
                                             Register
                                         </a>
-                                    @endif --}}
+                                    @endif
                                 @endauth
                             </nav>
                         @endif
@@ -81,14 +81,15 @@
 
                                     <svg class="size-6 shrink-0 stroke-[#FF2D20]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"/></svg>
                                 </div>
-                            </a>
-
-                           
+                            </a>  
                         </div>
                     </main>
 
                 </div>
             </div>
         </div>
+       <!-- Button that redirects to the login page -->
+
+
     </body>
 </html>

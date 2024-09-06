@@ -7,12 +7,19 @@ use Illuminate\Http\Request;
 
 class adminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $movies = Movie::paginate(5); // Adjust pagination as needed
+        $search = $request->input('search');
+
+        
+        $movies = Movie::when($search, function ($query, $search) {
+            return $query->where('title', 'like', '%' . $search . '%');
+        })->paginate(5);
+
+        
         return view('admin.index', compact('movies'));
     }
-    
+
     public function show($id)
     {
         $movie = Movie::findOrFail($id);
