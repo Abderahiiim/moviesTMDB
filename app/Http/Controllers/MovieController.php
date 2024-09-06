@@ -77,12 +77,22 @@ class MovieController extends Controller
         //
     }
 
-   // MovieController.php
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $movies = Movie::where('title', 'like', "%{$query}%")->get(); // Adjust according to your movie model
+        $year = $request->input('year');
+
+        $movies = Movie::query()
+            ->when($query, function ($queryBuilder, $query) {
+                return $queryBuilder->where('title', 'like', "%{$query}%");
+            })
+            ->when($year, function ($queryBuilder, $year) {
+                return $queryBuilder->whereYear('release_date', $year);
+            })
+            ->get();
+
         return view('movies.index', compact('movies'));
     }
+
 
 }
