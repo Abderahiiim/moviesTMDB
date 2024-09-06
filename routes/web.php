@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminController;
 use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+Route::resource('admin', adminController::class);
+    
 });
 
 
@@ -26,3 +29,5 @@ Route::get('/movies/search', [MovieController::class, 'search'])->name('movies.s
 
 
 Route::get('/movies/{id}', [MovieController::class, 'show'])->name('movies.show');
+
+

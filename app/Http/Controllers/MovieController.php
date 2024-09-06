@@ -16,21 +16,18 @@ class MovieController extends Controller
 
 
 
-    public function index()
-    {
-        
-        if (Movie::count() === 0) {
-           
-            $this->fetchAndStore();
-        }
-
-    
-        $movies = Movie::all();
-
-      
-        return view('movies.index', compact('movies'));
-    }
-
+     public function index()
+     {
+         if (Movie::count() === 0) {
+             $this->fetchAndStore();
+         }
+     
+         // Paginate the movies, 5 per page
+         $movies = Movie::paginate(4);
+     
+         return view('movies.index', compact('movies'));
+     }
+     
     public function fetchAndStore()
     {
         $apiKey = env('TMDB_API_KEY');
@@ -76,7 +73,7 @@ class MovieController extends Controller
     {
         $movie = Movie::findOrFail($id); 
 
-        return view('movies.show', compact('movie')); 
+        return view('movies.show', compact('movie'));
     }
 
     public function search(Request $request)
@@ -91,7 +88,7 @@ class MovieController extends Controller
             ->when($year, function ($queryBuilder, $year) {
                 return $queryBuilder->whereYear('release_date', $year);
             })
-            ->get();
+            ->paginate(4);
 
         return view('movies.index', compact('movies'));
     }
