@@ -72,9 +72,11 @@ class MovieController extends Controller
     }
 
     
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $movie = Movie::findOrFail($id); 
+
+        return view('movies.show', compact('movie')); 
     }
 
     public function search(Request $request)

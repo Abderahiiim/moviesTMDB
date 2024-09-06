@@ -51,15 +51,14 @@
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 @foreach($movies as $movie)
-                    <div class="bg-white shadow-md rounded-lg p-4">
+                    <a 
+                        href="{{ route('movies.show', $movie->id) }}" 
+                        class="bg-white shadow-md rounded-lg p-4 cursor-pointer"
+                    >
                         <img src="https://image.tmdb.org/t/p/w500/{{ $movie->poster_path }}" alt="{{ $movie->title }} Poster" class="w-full h-64 object-cover rounded-lg mb-4">
                         <h2 class="text-xl font-semibold mb-2">{{ $movie->title }}</h2>
                         <p class="text-gray-700 mb-2">{{ $movie->overview }}</p>
-                        <p class="text-gray-500">Release Date: {{ $movie->release_date }}</p>
-                        <p class="text-gray-500">Language: {{ $movie->language }}</p>
-                        <p class="text-gray-500">Popularity: {{ number_format($movie->popularity, 2) }}</p>
-                        <p class="text-gray-500">Vote Average: {{ number_format($movie->vote_average, 1) }} ({{ $movie->vote_count }} votes)</p>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         @endif
